@@ -1,0 +1,56 @@
+CREATE CLASS Developer EXTENDS V
+CREATE CLASS Post EXTENDS V
+CREATE CLASS Question EXTENDS V
+CREATE CLASS Field EXTENDS V
+
+
+CREATE CLASS BelongsIn EXTENDS E
+CREATE CLASS Posted EXTENDS E
+CREATE CLASS LikedBy EXTENDS E
+CREATE CLASS AskedBy EXTENDS E
+CREATE CLASS AnsweredBy EXTENDS E
+CREATE CLASS Follwed EXTENDS E
+
+
+CREATE VERTEX Developer SET first_name="joe", second_name="justin", email="joe123@gmail.com", experience=4, date_joined=sysdate()
+CREATE VERTEX Developer SET first_name="martin", second_name="randy", email="randomartin@gmail.com", experience=7, date_joined=sysdate()
+CREATE VERTEX Developer SET first_name="daniel", second_name="joe", email="danieljoe@gmail.com", experience=4, date_joined=sysdate()
+
+CREATE EDGE Followed FROM #27:0 TO #26:0 SET time_followed=sysdate()
+CREATE EDGE Followed FROM #28:0 TO 26:0 SET time_followed=sysdate()
+
+
+CREATE VERTEX Field SET name="Python"
+CREATE VERTEX Field SET name="Java"
+
+CREATE VERTEX Post SET title="Tuples", description="Tuples provide a way to store data that is ..."
+CREATE VERTEX Post SET title="TKinter", description="TKinter allows you to create GUI in Python ..."
+CREATE VERTEX Post SET title="The Good, the Bad, the Ugly: Python", description="There has been a growing demand for Python developers...."
+CREATE VERTEX Post SET title="Java EE", description="Java EE provides a collection of tools that enable you create ..."
+
+
+CREATE EDGE Posted FROM #26:0 TO #30:0 SET time_posted=sysdate()
+CREATE EDGE Posted FROM #26:0 TO #31:0 SET time_posted=sysdate()
+CREATE EDGE Posted FROM #26:0 TO #32:0 SET time_posted=sysdate()
+CREATE EDGE Posted FROM #27:0 TO #33:0 SET time_posted=sysdate()
+
+CREATE EDGE BelongsIn FROM #30:0 TO #58:0
+CREATE EDGE BelongsIn FROM #31:0 TO #58:0
+CREATE EDGE BelongsIn FROM #32:0 TO #58:0
+CREATE EDGE BelongsIn FROM #33:0 TO #59:0
+
+CREATE EDGE LikedBy FROM #30:0 TO #27:0 SET time_liked=sysdate()
+CREATE EDGE LikedBy FROM #30:0 TO #28:0 SET time_liked=sysdate()
+CREATE EDGE LikedBy FROM #31:0 TO #27:0 SET time_liked=sysdate()
+CREATE EDGE LikedBy FROM #32:0 TO #26:0 SET time_liked=sysdate()
+
+CREATE VERTEX Question SET title="Handling Streams", question="Am having a hard time flushing streams...." 
+CREATE VERTEX Question SET title="Passing parameters in Java EE", question="Am stuck trying to pass values from a JSF to the backing bean...." 
+
+CREATE EDGE AskedBy FROM #34:0 TO #26:0 SET time_posted=sysdate()
+CREATE EDGE AskedBy FROM #35:0 TO #27:0 SET time_posted=sysdate()
+
+CREATE EDGE BelongsIn FROM #34:0 TO #58:0
+CREATE EDGE BelongsIn FROM #35:0 TO #59:0
+
+CREATE EDGE AnsweredBy FROM #34:0 TO #28:0 SET time_posted=sysdate(), answer="Hey xxxx. You could use the networking function ...."
